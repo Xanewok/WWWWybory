@@ -2,6 +2,8 @@
 import os
 import errno
 import shutil
+from collections import OrderedDict
+
 from wybory import env, data
 from  more_itertools import unique_everseen
 
@@ -26,8 +28,8 @@ def build_wojewodztwo(wojewodztwo_id):
         return html_name
 
     wojewodztwo_list = filter(lambda x: x.wojewodztwo_criteria_id == wojewodztwo_id, data.Obwod.objects)
-    children = list(unique_everseen(wojewodztwo_list, lambda x: x.nr_okregu))
-    children_links = dict(map(lambda x: ("Okreg {0}".format(int(x.nr_okregu)), build_okreg(x.nr_okregu)), children))
+    children = sorted(list(unique_everseen(wojewodztwo_list, lambda x: x.nr_okregu)), key=lambda x: x.nr_okregu)
+    children_links = OrderedDict(map(lambda x: ("Okreg {0}".format(int(x.nr_okregu)), build_okreg(x.nr_okregu)), children))
 
     template = env.get_template('wojewodztwo.html')
     out = template.render(my_dict=children_links, go='here')
@@ -44,8 +46,8 @@ def build_okreg(nr_okregu):
         return html_name
 
     okreg_list = filter(lambda x: x.nr_okregu == nr_okregu, data.Obwod.objects)
-    children = list(unique_everseen(okreg_list, lambda x: x.kod_gminy))
-    children_links = dict(map(lambda x: (x.gmina, build_gmina(x.kod_gminy)), children))
+    children = sorted(list(unique_everseen(okreg_list, lambda x: x.kod_gminy)), key=lambda x: x.gmina)
+    children_links = OrderedDict(map(lambda x: (x.gmina, build_gmina(x.kod_gminy)), children))
 
     template = env.get_template('okreg.html')
     out = template.render(my_dict=children_links)
@@ -84,5 +86,5 @@ def make_sure_path_exists(path):
 if __name__ == "__main__":
     shutil.rmtree("build/", ignore_errors=True)
     make_sure_path_exists("build/")
-    build_wojewodztwo(20853)
+    build_wojewodztwo(20851)
 

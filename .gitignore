@@ -4,6 +4,8 @@
 __pycache__/
 *.pyc
 
+build/
+
 # User-specific stuff:
 .idea/**/workspace.xml
 .idea/**/tasks.xml

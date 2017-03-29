@@ -12,15 +12,10 @@
 # Powinien być generowany poprawny HTML
 # Powinien być generowany porawny CSS
 # Strona powinna być responsywna
-from wybory import data # Read resources/*.xls data
-print(data.Obwod.objects)
 
-from flask import Flask
-app = Flask(__name__)
-
-@app.route('/')
-def index():
-    return 'Hello World!'
-
-if __name__ == "__main__":
-    app.run(debug=True)
+from jinja2 import Environment, PackageLoader, select_autoescape
+from wybory import data  # Read and parse resources/*.xls data
+env = Environment(
+    loader=PackageLoader('wybory', 'templates'),
+    autoescape=select_autoescape(['html', 'xml'])
+)

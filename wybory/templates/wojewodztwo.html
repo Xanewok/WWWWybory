@@ -16,8 +16,8 @@
     <div class="container">
       <p>Loop through the list:</p>
       <ul>
-        {% for n in my_list %}
-        <li>{{n}}</li>
+        {% for k,v in my_dict.items() %}
+        <li><a href="{{ v }}">{{ k }}</a></li>
         {% endfor %}
       </ul>
     </div>

@@ -88,8 +88,8 @@ def read_data():
             obwod = Obwod()
             values = worksheet.row_values(rownum)
             obwod.wojewodztwo_criteria_id = okreg_to_geotarget_criteria_id(values[0])  # num
-            obwod.nr_okregu = values[0]  # num
-            obwod.kod_gminy = values[1]  # num
+            obwod.nr_okregu = int(values[0])  # num
+            obwod.kod_gminy = int(values[1])  # num
             obwod.gmina = values[2]
             obwod.powiat = values[3]
             obwod.nr_obwodu = values[4]  # num

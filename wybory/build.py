@@ -2,7 +2,7 @@
 import os
 import errno
 import shutil
-from wybory import env
+from wybory import env, data
 
 # Wyniki wyborów w całym kraju plus mapka z województwami, na których można klikać
 # Wyniki wyborów w każdym z województw plus odnośniki do okręgów
@@ -10,8 +10,10 @@ from wybory import env
 # Wyniki wyborów w każdej gminie w podziale na obwody
 
 def build_kraj():
+    my_list = filter(lambda x: x.nr_okregu == 1, data.Obwod.objects)
+
     template = env.get_template('index.html')
-    out = template.render(the='variables', go='here')
+    out = template.render(my_list=my_list, go='here')
     with open(os.path.join('build/kraj.html'), "w+") as f:
         f.write(out)
         f.close()

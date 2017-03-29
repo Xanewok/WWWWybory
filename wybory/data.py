@@ -16,6 +16,9 @@ class Obwod:
         self.typ_obwodu = ""
         self.wyniki = [] # size of 12, starting from index 12 (0-indexed)
 
+    def __str__(self):
+        return "Wojewodztwo: " + str(self.wojewodztwo_criteria_id) + ", gmina: " + self.gmina
+
 # https://developers.google.com/adwords/api/docs/appendix/geotargeting
 # Target Type: Region
 # Country Code: PL

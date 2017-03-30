@@ -1,4 +1,15 @@
 {% extends "base.html" %}
+{% block navigation %}
+    <nav>
+    {% for item in nav %}
+        <a href="{{ item.1 }}">{{ item.0 }}</a>
+        {% if loop.index < nav|length %}
+            ->
+        {% endif %}
+    {% endfor %}
+    </nav>
+{% endblock navigation %}
+
 {% block results %}
     <div class="container">
     {% for gmina, results in result_set.items() %}

@@ -9,6 +9,7 @@ class Obwod:
     objects = []
 
     def __init__(self):
+        self.wojewodztwo = ""
         self.wojewodztwo_criteria_id = 0
         self.nr_okregu = 0
         self.kod_gminy = 0
@@ -76,6 +77,26 @@ def okreg_to_geotarget_criteria_id(num):
         return 20861
     if 65 <= num <= 68:  # województwo ZACHODNIOPOMORSKIE: 65 Szczecin, 66 Koszalin, 67 Stargard Szczeciński, 68 Szczecinek
         return 20862
+
+
+def okreg_to_province_name(num):
+    if 1  <= num <= 4: return  "Dolnośląskie"
+    if 5  <= num <= 7: return  "Kujawsko-pomorskie"
+    if 13 <= num <= 14: return "Lubuskie"
+    if 15 <= num <= 19: return "Łódzkie"
+    if 8  <= num <= 12: return "Lubelskie"
+    if 20 <= num <= 27: return "Małopolskie"
+    if 28 <= num <= 36: return "Mazowieckie"
+    if 37 <= num <= 38: return "Opolskie"
+    if 43 <= num <= 45: return "Podlaskie"
+    if 39 <= num <= 42: return "Podkarpackie"
+    if 46 <= num <= 48: return "Pomorskie"
+    if 55 <= num <= 56: return "Świętokrzyskie"
+    if 49 <= num <= 54: return "Śląskie"
+    if 57 <= num <= 59: return "Warmińsko-mazurskie"
+    if 60 <= num <= 64: return "Wielkopolskie"
+    if 65 <= num <= 68: return "Zachodniopomorskie"
+    return "Nieznane"
 
 
 def polish_province_ids():
@@ -147,6 +168,7 @@ def read_data():
 
             obwod = Obwod()
             values = worksheet.row_values(rownum)
+            obwod.wojewodztwo = okreg_to_province_name(values[0])
             obwod.wojewodztwo_criteria_id = okreg_to_geotarget_criteria_id(values[0])  # num
             obwod.nr_okregu = int(values[0])  # num
             obwod.kod_gminy = int(values[1])  # num

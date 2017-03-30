@@ -1,11 +1,24 @@
 {% extends "base.html" %}
+{% block navigation %}
+    <nav>
+    <div id="nav-tree">
+        {% for item in nav %}
+            <a href="{{ item.1 }}">{{ item.0 }}</a>
+            {% if loop.index < nav|length %}
+                ->
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div id="nav-children">
+        {% for k,v in my_dict.items() %}
+            <a href="{{ v }}">{{ k }}</a>
+        {% endfor %}
+    </div>
+    </nav>
+{% endblock navigation %}
+
 {% block results %}
     <div class="container">
-        <ul>
-            {% for k,v in my_dict.items() %}
-                <li><a href="{{ v }}">{{ k }}</a></li>
-            {% endfor %}
-        </ul>
         <ul>
             {% for (candidate, vote_count, vote_perc) in result_set %}
                 <li>{{ candidate }}; {{ vote_count }}; {{ '{:.1%}'.format(vote_perc) }}</li>

@@ -12,6 +12,18 @@ from  more_itertools import unique_everseen
 # Wyniki wyborów w każdym okręgu plus odnośniki do gmin
 # Wyniki wyborów w każdej gminie w podziale na obwody
 
+def create_navigation(obwod, path_len):
+    path = [("Kraj", "kraj.html")]
+    if path_len == 1: return path
+    path.append( (obwod.wojewodztwo, "woj{0}.html".format(obwod.wojewodztwo_criteria_id)) )
+    if path_len == 2: return path
+    path.append( ("Okręg {0}".format(obwod.nr_okregu), "okr{0}.html".format(obwod.nr_okregu)) )
+    if path_len == 3: return path
+    path.append((obwod.gmina, "gm{0}.html".format(obwod.kod_gminy)))
+
+    return path
+
+
 def build_kraj():
     html_name = "kraj.html"
 
@@ -39,8 +51,11 @@ def build_wojewodztwo(wojewodztwo_id):
     wojewodztwo_list = filter(lambda x: x.wojewodztwo_criteria_id == wojewodztwo_id, data.Obwod.objects)
     result_set = data.calculate_result_set(wojewodztwo_list)
 
+    next_obwod = next(obj for obj in data.Obwod.objects if obj.wojewodztwo_criteria_id == wojewodztwo_id)
+    nav_list = create_navigation(next_obwod, 2)
+
     template = env.get_template('wojewodztwo.html')
-    out = template.render(my_dict=children_links, result_set=result_set)
+    out = template.render(my_dict=children_links, result_set=result_set, nav=nav_list)
     with open("build/" + html_name, "w+") as f:
         f.write(out)
         f.close()
@@ -60,8 +75,11 @@ def build_okreg(nr_okregu):
     okreg_list = filter(lambda x: x.nr_okregu == nr_okregu, data.Obwod.objects)
     result_set = data.calculate_result_set(okreg_list)
 
+    next_obwod = next(obj for obj in data.Obwod.objects if obj.nr_okregu == nr_okregu)
+    nav_list = create_navigation(next_obwod, 3)
+
     template = env.get_template('okreg.html')
-    out = template.render(my_dict=children_links, result_set=result_set)
+    out = template.render(my_dict=children_links, result_set=result_set, nav=nav_list)
     with open("build/" + html_name, "w+") as f:
         f.write(out)
         f.close()
@@ -77,8 +95,11 @@ def build_gmina(kod_gminy):
     gmina_list = filter(lambda x: x.kod_gminy == kod_gminy, data.Obwod.objects)
     results = OrderedDict(map(lambda x: (x, list(data.calculate_result_set([x]))), gmina_list))
 
+    next_obwod = next(obj for obj in data.Obwod.objects if obj.kod_gminy == kod_gminy)
+    nav_list = create_navigation(next_obwod, 4)
+
     template = env.get_template('gmina.html')
-    out = template.render(my_list=gmina_list, result_set=results)
+    out = template.render(my_list=gmina_list, result_set=results, nav=nav_list)
     with open("build/" + html_name, "w+") as f:
         f.write(out)
         f.close()

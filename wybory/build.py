@@ -13,11 +13,14 @@ from  more_itertools import unique_everseen
 # Wyniki wyborów w każdej gminie w podziale na obwody
 
 def build_kraj():
-    my_list = filter(lambda x: x.nr_okregu == 1, data.Obwod.objects)
+    html_name = "kraj.html"
 
-    template = env.get_template('index.html')
-    out = template.render(my_list=my_list, go='here')
-    with open(os.path.join('build/kraj.html'), "w+") as f:
+    for woj_id in data.polish_province_ids():
+        build_wojewodztwo(woj_id)
+
+    template = env.get_template('kraj.html')
+    out = template.render( go='here')
+    with open("build/" + html_name, "w+") as f:
         f.write(out)
         f.close()
 
@@ -89,5 +92,5 @@ def make_sure_path_exists(path):
 if __name__ == "__main__":
     shutil.rmtree("build/", ignore_errors=True)
     make_sure_path_exists("build/")
-    build_wojewodztwo(20851)
+    build_kraj()
 

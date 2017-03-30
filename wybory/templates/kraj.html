@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Flask Template Example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script type="text/javascript">
+		google.charts.load('current', {'packages':['geochart']});
+		google.charts.setOnLoadCallback(function() {
+			var data = google.visualization.arrayToDataTable([
+				['Voivodeship'],
+				['Dolnośląskie'],
+				['Kujawsko-pomorskie'],
+				['Lubelskie'],
+				['Lubuskie'],
+				['Łódzkie'],
+				['Małopolskie'],
+				['Mazowieckie'],
+				['Opolskie'],
+				['Podkarpackie'],
+				['Podlaskie'],
+				['Pomorskie'],
+				['Śląskie'],
+				['Świętokrzyskie'],
+				['Warmińsko-mazurskie'],
+				['Wielkopolskie'],
+				['Zachodniopomorskie'],
+			]);
+
+			var options = {
+			    resolution: 'provinces',
+                region: 'PL',
+                displayMode: 'regions',
+                keepAspectRatio: true,
+                width: '100%',
+                height: '100%'
+			};
+
+			var chart = new google.visualization.GeoChart(document.getElementById('voivodeships'));
+			google.visualization.events.addListener(chart, 'regionClick', function(elem) {
+                if (elem.region.startsWith('PL')) {
+                    // ISO 3166-2:PL to Google Geotargeting Criteria ID
+                    regions = {
+                        'PL-DS': 20847,
+                        'PL-KP': 20848,
+                        'PL-LU': 20851,
+                        'PL-LB': 20849,
+                        'PL-LD': 20850,
+                        'PL-MA': 20852,
+                        'PL-MZ': 20853,
+                        'PL-OP': 20854,
+                        'PL-PK': 20856,
+                        'PL-PD': 20855,
+                        'PL-PM': 20857,
+                        'PL-SL': 20859,
+                        'PL-SK': 20858,
+                        'PL-WN': 20860,
+                        'PL-WP': 20861,
+                        'PL-ZP': 20862,
+                    };
+                    document.location.href = document.location.href.replace('kraj.html', 'woj' + regions[elem.region] + '.html');
+                }
+            });
+			window.addEventListener('resize', function() {
+                chart.draw(data, options);
+            });
+
+			chart.draw(data, options);
+		})
+	</script>
+    <div id="voivodeships" class="visualization"></div>
+  </body>
+</html>

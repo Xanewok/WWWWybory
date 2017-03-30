@@ -78,6 +78,10 @@ def okreg_to_geotarget_criteria_id(num):
         return 20862
 
 
+def polish_province_ids():
+    return list(range(20847, 20863))
+
+
 def candidate_count():
     return 12
 
@@ -127,6 +131,7 @@ def sum_results(results, sum):
 def calculate_result_set(obwod_obj_list):
     results = reduce(sum_results, map(lambda x: x.wyniki, obwod_obj_list), empty_result_set())
     total_count = int(sum(results))
+    if total_count == 0: total_count = 1 # Used only for percentage, if sum is 0, then vote/sum still will be 0
     return map(lambda x: (candidate_name(x), int(results[x]), int(results[x])/total_count), range(0, candidate_count()))
 
 

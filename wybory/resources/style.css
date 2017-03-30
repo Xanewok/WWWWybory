@@ -45,19 +45,20 @@ body {
     margin-bottom: 10px;
 }
 
-.results p {
+.results-table-container {
     max-width: 600px;
     width: 100%;
     margin: auto;
-    -webkit-margin-after: 0;
 }
 
 .results-table {
-    max-width: 600px;
-    width: 100%;
-    margin: auto;
     border-top-style: solid;
     border-color: red;
+}
+
+.results-table-header {
+    margin-top: 16px;
+    margin-bottom: 3px;
 }
 
 .results-table tr:nth-child(even) {

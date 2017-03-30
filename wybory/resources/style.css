@@ -35,3 +35,38 @@ body {
     margin-top: 5px;
     margin-bottom: 5px;
 }
+
+#nav-tree {
+    padding: 5px;
+}
+
+#nav-children {
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.results p {
+    max-width: 600px;
+    width: 100%;
+    margin: auto;
+    -webkit-margin-after: 0;
+}
+
+.results-table {
+    max-width: 600px;
+    width: 100%;
+    margin: auto;
+    border-top-style: solid;
+    border-color: red;
+}
+
+.results-table tr:nth-child(even) {
+    background-color: #eee;
+}
+.results-table tr:nth-child(odd) {
+    background-color: #fff;
+}
+.results-table th {
+	color: #111e7a;
+	font-weight: bold;
+}

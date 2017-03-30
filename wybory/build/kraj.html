@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    
+    <title>Wybory Prezydenta Rzeczypospolitej Polskiej 2000</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    
+</head>
+<body>
+    <header>
+<div class="primary-header">
+    <img id="logo" src="http://prezydent2000.pkw.gov.pl/i/l.gif"/>
+    <div id="logo-extension">
+        <div id="logo-blue-fill"></div>
+        <div id="logo-red-bar"></div>
+    </div>
+</div>
+</header>
+    
+    <div id="nav-tree">
+        <a href="kraj.html">Kraj</a>
+    </div>
+
+
+    
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['geochart']});
+        google.charts.setOnLoadCallback(function() {
+            var data = google.visualization.arrayToDataTable([
+                ['Voivodeship'],
+                ['Dolnośląskie'],
+                ['Kujawsko-pomorskie'],
+                ['Lubelskie'],
+                ['Lubuskie'],
+                ['Łódzkie'],
+                ['Małopolskie'],
+                ['Mazowieckie'],
+                ['Opolskie'],
+                ['Podkarpackie'],
+                ['Podlaskie'],
+                ['Pomorskie'],
+                ['Śląskie'],
+                ['Świętokrzyskie'],
+                ['Warmińsko-mazurskie'],
+                ['Wielkopolskie'],
+                ['Zachodniopomorskie'],
+            ]);
+
+            var options = {
+                resolution: 'provinces',
+                region: 'PL',
+                displayMode: 'regions',
+            };
+
+            var chart = new google.visualization.GeoChart(document.getElementById('voivodeships'));
+            google.visualization.events.addListener(chart, 'regionClick', function(elem) {
+                if (elem.region.startsWith('PL')) {
+                    // ISO 3166-2:PL to Google Geotargeting Criteria ID
+                    regions = {
+                        'PL-DS': 20847,
+                        'PL-KP': 20848,
+                        'PL-LU': 20851,
+                        'PL-LB': 20849,
+                        'PL-LD': 20850,
+                        'PL-MA': 20852,
+                        'PL-MZ': 20853,
+                        'PL-OP': 20854,
+                        'PL-PK': 20856,
+                        'PL-PD': 20855,
+                        'PL-PM': 20857,
+                        'PL-SL': 20859,
+                        'PL-SK': 20858,
+                        'PL-WN': 20860,
+                        'PL-WP': 20861,
+                        'PL-ZP': 20862,
+                    };
+                    document.location.href = document.location.href.replace('kraj.html', 'woj' + regions[elem.region] + '.html');
+                }
+            });
+            function drawResponsiveChart() {
+                var height = window.innerHeight;
+                var min = 0, max = 600;
+                height = Math.min(Math.max(height, min), max);
+
+                // Assume height = 0.66 * width for aspect ratio and whatnot
+                if (height > 0.66 * window.innerWidth)
+                    height = 0.66 * window.innerWidth;
+
+                options.keepAspectRatio = true;
+                options.height = height;
+
+                chart.draw(data, options);
+            }
+
+            window.addEventListener('resize', function() {
+                drawResponsiveChart();
+            });
+
+            drawResponsiveChart();
+        })
+    </script>
+    <div id="voivodeships" class="visualization"></div>
+
+
+    
+    <div class="results">
+        <div class="results-table-container">
+            <table class="results-table">
+                <tr>
+                    <th>Kandydat</th>
+                    <th>Liczba ważnych oddanych głosów</th>
+                    <th>Procentowa liczba ważnych oddanych głosów</th>
+                </tr>
+                
+                    <tr>
+                        <td>Dariusz Maciej GRABOWSKI</td>
+                        <td>89002</td>
+                        <td>0.5%</td>
+                    </tr>
+                
+                    <tr>
+                        <td>Piotr IKONOWICZ</td>
+                        <td>38672</td>
+                        <td>0.2%</td>
+                    </tr>
+                
+                    <tr>
+                        <td>Jarosław KALINOWSKI</td>
+                        <td>1047949</td>
+                        <td>6.0%</td>
+                    </tr>
+                
+                    <tr>
+                        <td>Janusz KORWIN-MIKKE</td>
+                        <td>252499</td>
+                        <td>1.4%</td>
+                    </tr>
+                
+                    <tr>
+                        <td>Marian KRZAKLEWSKI</td>
+                        <td>2739621</td>
+                        <td>15.6%</td>
+                    </tr>
+                
+                    <tr>
+                        <td>Aleksander KWAŚNIEWSKI</td>
+                        <td>9485224</td>
+                        <td>53.9%</td>
+                    </tr>
+                
+                    <tr>
+                        <td>Andrzej LEPPER</td>
+                        <td>537570</td>
+                        <td>3.1%</td>
+                    </tr>
+                
+                    <tr>
+                        <td>Jan ŁOPUSZAŃSKI</td>
+                        <td>139682</td>
+                        <td>0.8%</td>
+                    </tr>
+                
+                    <tr>
+                        <td>Andrzej Marian OLECHOWSKI</td>
+                        <td>3044141</td>
+                        <td>17.3%</td>
+                    </tr>
+                
+                    <tr>
+                        <td>Bogdan PAWŁOWSKI</td>
+                        <td>17164</td>
+                        <td>0.1%</td>
+                    </tr>
+                
+                    <tr>
+                        <td>Lech WAŁĘSA</td>
+                        <td>178590</td>
+                        <td>1.0%</td>
+                    </tr>
+                
+                    <tr>
+                        <td>Tadeusz Adam WILECKI</td>
+                        <td>28805</td>
+                        <td>0.2%</td>
+                    </tr>
+                
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

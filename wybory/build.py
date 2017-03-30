@@ -18,8 +18,10 @@ def build_kraj():
     for woj_id in data.polish_province_ids():
         build_wojewodztwo(woj_id)
 
+    result_set = data.calculate_result_set(data.Obwod.objects)
+
     template = env.get_template('kraj.html')
-    out = template.render( go='here')
+    out = template.render(result_set=result_set)
     with open("build/" + html_name, "w+") as f:
         f.write(out)
         f.close()

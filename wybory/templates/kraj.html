@@ -31,9 +31,6 @@
 			    resolution: 'provinces',
                 region: 'PL',
                 displayMode: 'regions',
-                keepAspectRatio: true,
-                width: '100%',
-                height: '100%'
 			};
 
 			var chart = new google.visualization.GeoChart(document.getElementById('voivodeships'));
@@ -61,13 +58,37 @@
                     document.location.href = document.location.href.replace('kraj.html', 'woj' + regions[elem.region] + '.html');
                 }
             });
-			window.addEventListener('resize', function() {
+			function drawResponsiveChart() {
+			    var height = window.innerHeight;
+			    var min = 0, max = 600;
+			    height = Math.min(Math.max(height, min), max);
+
+			    // Assume height = 0.66 * width for aspect ratio and whatnot
+                if (height > 0.66 * window.innerWidth)
+                    height = 0.66 * window.innerWidth;
+
+                options.keepAspectRatio = true;
+                options.height = height;
+
                 chart.draw(data, options);
+            }
+
+			window.addEventListener('resize', function() {
+                drawResponsiveChart();
             });
 
-			chart.draw(data, options);
+			drawResponsiveChart();
 		})
 	</script>
     <div id="voivodeships" class="visualization"></div>
+
+    <div class="container">
+    <p>Result set:</p>
+    <ul>
+        {% for (candidate, vote_count, vote_perc) in result_set %}
+            <li>{{ candidate }}; {{ vote_count }}; {{ '{:.1%}'.format(vote_perc) }}</li>
+        {% endfor %}
+    </ul>
+    </div>
   </body>
 </html>

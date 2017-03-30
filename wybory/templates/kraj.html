@@ -1,40 +1,38 @@
-<!doctype html>
-<html lang="pl">
-  {% include 'head.html' %}
-  <body>
-    {% include 'header.html' %}
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-	<script type="text/javascript">
-		google.charts.load('current', {'packages':['geochart']});
-		google.charts.setOnLoadCallback(function() {
-			var data = google.visualization.arrayToDataTable([
-				['Voivodeship'],
-				['Dolnośląskie'],
-				['Kujawsko-pomorskie'],
-				['Lubelskie'],
-				['Lubuskie'],
-				['Łódzkie'],
-				['Małopolskie'],
-				['Mazowieckie'],
-				['Opolskie'],
-				['Podkarpackie'],
-				['Podlaskie'],
-				['Pomorskie'],
-				['Śląskie'],
-				['Świętokrzyskie'],
-				['Warmińsko-mazurskie'],
-				['Wielkopolskie'],
-				['Zachodniopomorskie'],
-			]);
+{% extends "base.html" %}
 
-			var options = {
-			    resolution: 'provinces',
+{% block content %}
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['geochart']});
+        google.charts.setOnLoadCallback(function() {
+            var data = google.visualization.arrayToDataTable([
+                ['Voivodeship'],
+                ['Dolnośląskie'],
+                ['Kujawsko-pomorskie'],
+                ['Lubelskie'],
+                ['Lubuskie'],
+                ['Łódzkie'],
+                ['Małopolskie'],
+                ['Mazowieckie'],
+                ['Opolskie'],
+                ['Podkarpackie'],
+                ['Podlaskie'],
+                ['Pomorskie'],
+                ['Śląskie'],
+                ['Świętokrzyskie'],
+                ['Warmińsko-mazurskie'],
+                ['Wielkopolskie'],
+                ['Zachodniopomorskie'],
+            ]);
+
+            var options = {
+                resolution: 'provinces',
                 region: 'PL',
                 displayMode: 'regions',
-			};
+            };
 
-			var chart = new google.visualization.GeoChart(document.getElementById('voivodeships'));
-			google.visualization.events.addListener(chart, 'regionClick', function(elem) {
+            var chart = new google.visualization.GeoChart(document.getElementById('voivodeships'));
+            google.visualization.events.addListener(chart, 'regionClick', function(elem) {
                 if (elem.region.startsWith('PL')) {
                     // ISO 3166-2:PL to Google Geotargeting Criteria ID
                     regions = {
@@ -58,12 +56,12 @@
                     document.location.href = document.location.href.replace('kraj.html', 'woj' + regions[elem.region] + '.html');
                 }
             });
-			function drawResponsiveChart() {
-			    var height = window.innerHeight;
-			    var min = 0, max = 600;
-			    height = Math.min(Math.max(height, min), max);
+            function drawResponsiveChart() {
+                var height = window.innerHeight;
+                var min = 0, max = 600;
+                height = Math.min(Math.max(height, min), max);
 
-			    // Assume height = 0.66 * width for aspect ratio and whatnot
+                // Assume height = 0.66 * width for aspect ratio and whatnot
                 if (height > 0.66 * window.innerWidth)
                     height = 0.66 * window.innerWidth;
 
@@ -73,22 +71,22 @@
                 chart.draw(data, options);
             }
 
-			window.addEventListener('resize', function() {
+            window.addEventListener('resize', function() {
                 drawResponsiveChart();
             });
 
-			drawResponsiveChart();
-		})
-	</script>
+            drawResponsiveChart();
+        })
+    </script>
     <div id="voivodeships" class="visualization"></div>
+{% endblock content %}
 
+{% block results %}
     <div class="container">
-    <p>Result set:</p>
-    <ul>
-        {% for (candidate, vote_count, vote_perc) in result_set %}
-            <li>{{ candidate }}; {{ vote_count }}; {{ '{:.1%}'.format(vote_perc) }}</li>
-        {% endfor %}
-    </ul>
+        <ul>
+            {% for (candidate, vote_count, vote_perc) in result_set %}
+                <li>{{ candidate }}; {{ vote_count }}; {{ '{:.1%}'.format(vote_perc) }}</li>
+            {% endfor %}
+        </ul>
     </div>
-  </body>
-</html>
+{% endblock %}

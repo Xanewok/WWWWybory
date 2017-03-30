@@ -1,7 +1,14 @@
 <!doctype html>
 <html lang="pl">
-  {% include 'head.html' %}
-  <body>
+<head>
+    {% block head %}
+    <title>Wybory Prezydenta Rzeczypospolitej Polskiej 2000</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    {% endblock head %}
+</head>
+<body>
     {% include 'header.html' %}
     {% block navigation %}
     {% endblock navigation %}
@@ -11,5 +18,5 @@
 
     {% block results %}
     {% endblock results %}
-  </body>
+</body>
 </html>

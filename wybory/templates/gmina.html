@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 {% block navigation %}
     <nav>
-    {% for item in nav %}
-        <a href="{{ item.1 }}">{{ item.0 }}</a>
-        {% if loop.index < nav|length %}
-            ->
-        {% endif %}
-    {% endfor %}
+    <div id="nav-tree">
+        {% for item in nav %}
+            <a href="{{ item.1 }}">{{ item.0 }}</a>
+            {% if loop.index < nav|length %}
+                ->
+            {% endif %}
+        {% endfor %}
+    </div>
     </nav>
 {% endblock navigation %}
 

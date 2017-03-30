@@ -31,8 +31,11 @@ def build_wojewodztwo(wojewodztwo_id):
     children = sorted(list(unique_everseen(wojewodztwo_list, lambda x: x.nr_okregu)), key=lambda x: x.nr_okregu)
     children_links = OrderedDict(map(lambda x: ("Okręg {0}".format(x.nr_okregu), build_okreg(x.nr_okregu)), children))
 
+    wojewodztwo_list = filter(lambda x: x.wojewodztwo_criteria_id == wojewodztwo_id, data.Obwod.objects)
+    result_set = data.calculate_result_set(wojewodztwo_list)
+
     template = env.get_template('wojewodztwo.html')
-    out = template.render(my_dict=children_links, go='here')
+    out = template.render(my_dict=children_links, result_set=result_set)
     with open("build/" + html_name, "w+") as f:
         f.write(out)
         f.close()

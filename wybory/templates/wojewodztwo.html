@@ -20,6 +20,12 @@
         <li><a href="{{ v }}">{{ k }}</a></li>
         {% endfor %}
       </ul>
+      <p>Result set:</p>
+      <ul>
+        {% for (candidate, vote_count, vote_perc) in result_set %}
+        <li>{{ candidate }}; {{ vote_count }}; {{ '{:.1%}'.format(vote_perc) }}</li>
+        {% endfor %}
+      </ul>
     </div>
     <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>

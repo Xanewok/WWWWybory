@@ -1,4 +1,6 @@
 import glob
+from functools import reduce
+
 import xlrd
 from xlrd.timemachine import xrange
 
@@ -75,6 +77,58 @@ def okreg_to_geotarget_criteria_id(num):
         return 20862
 
 
+def candidate_count():
+    return 12
+
+
+def candidate_name(id):
+    if id == 0:
+        return "Dariusz Maciej GRABOWSKI"
+    if id == 1:
+        return "Piotr IKONOWICZ"
+    if id == 2:
+        return "Jarosław KALINOWSKI"
+    if id == 3:
+        return "Janusz KORWIN-MIKKE"
+    if id == 4:
+        return "Marian KRZAKLEWSKI"
+    if id == 5:
+        return "Aleksander KWAŚNIEWSKI"
+    if id == 6:
+        return "Andrzej LEPPER"
+    if id == 7:
+        return "Jan ŁOPUSZAŃSKI"
+    if id == 8:
+        return "Andrzej Marian OLECHOWSKI"
+    if id == 9:
+        return "Bogdan PAWŁOWSKI"
+    if id == 10:
+        return "Lech WAŁĘSA"
+    if id == 11:
+        return "Tadeusz Adam WILECKI"
+
+    return "Candidate name out of bounds"
+
+
+def empty_result_set():
+    results = [];
+    for i in range(0, candidate_count()):
+        results.append(0)
+    return results
+
+
+def sum_results(results, sum):
+    for i in range(0, candidate_count()):
+        results[i] += sum[i]
+    return results
+
+
+def calculate_result_set(obwod_obj_list):
+    results = reduce(sum_results, map(lambda x: x.wyniki, obwod_obj_list), empty_result_set())
+    total_count = int(sum(results))
+    return map(lambda x: (candidate_name(x), int(results[x]), int(results[x])/total_count), range(0, candidate_count()))
+
+
 def read_data():
     obw_files = glob.glob('resources/obw*.xls')
     for obw_file in obw_files:
@@ -94,7 +148,7 @@ def read_data():
             obwod.powiat = values[3]
             obwod.nr_obwodu = values[4]  # num
             obwod.typ_obwodu = values[5]
-            for i in range(0, 12): # 12 candidates
+            for i in range(0, candidate_count()): # 12 candidates
                 obwod.wyniki.append(values[12 + i])  # num, values are values[12...23]
 
             Obwod.objects.append(obwod)

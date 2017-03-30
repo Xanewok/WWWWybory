@@ -16,6 +16,7 @@ class Obwod:
         self.powiat = ""
         self.nr_obwodu = 0
         self.typ_obwodu = ""
+        self.adres = ""
         self.wyniki = [] # size of 12, starting from index 12 (0-indexed)
 
     def __str__(self):
@@ -148,6 +149,7 @@ def read_data():
             obwod.powiat = values[3]
             obwod.nr_obwodu = values[4]  # num
             obwod.typ_obwodu = values[5]
+            obwod.adres = values[6]
             for i in range(0, candidate_count()): # 12 candidates
                 obwod.wyniki.append(values[12 + i])  # num, values are values[12...23]
 

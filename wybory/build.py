@@ -67,10 +67,10 @@ def build_gmina(kod_gminy):
         return html_name
 
     gmina_list = filter(lambda x: x.kod_gminy == kod_gminy, data.Obwod.objects)
-    obwod_list = list(unique_everseen(map(lambda x: x.nr_obwodu, gmina_list)))
+    results = OrderedDict(map(lambda x: (x, list(data.calculate_result_set([x]))), gmina_list))
 
     template = env.get_template('gmina.html')
-    out = template.render(my_list=gmina_list, go='here')
+    out = template.render(my_list=gmina_list, result_set=results)
     with open("build/" + html_name, "w+") as f:
         f.write(out)
         f.close()

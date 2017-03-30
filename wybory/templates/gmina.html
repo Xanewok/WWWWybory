@@ -1,23 +1,13 @@
-<!doctype html>
-<html lang="pl">
-  {% include 'head.html' %}
-  <body>
-    {% include 'header.html' %}
+{% extends "base.html" %}
+{% block results %}
     <div class="container">
-      <p>Loop through the list:</p>
-      <ul>
-        {% for n in my_list %}
-        <li>{{n}}</li>
-        {% endfor %}
-      </ul>
-      {% for gmina, results in result_set.items() %}
+    {% for gmina, results in result_set.items() %}
         <p>Obwód nr {{ "%d" % gmina.nr_obwodu }}, {{ gmina.adres }}</p>
         <ul>
-          {% for (candidate, vote_count, vote_perc) in results %}
-            <li>{{ candidate }}; {{ vote_count }}; {{ '{:.1%}'.format(vote_perc) }}</li>
-          {% endfor %}
+            {% for (candidate, vote_count, vote_perc) in results %}
+                <li>{{ candidate }}; {{ vote_count }}; {{ '{:.1%}'.format(vote_perc) }}</li>
+            {% endfor %}
         </ul>
-      {% endfor %}
+    {% endfor %}
     </div>
-  </body>
-</html>
+{% endblock %}

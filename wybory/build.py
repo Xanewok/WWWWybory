@@ -57,8 +57,11 @@ def build_okreg(nr_okregu):
     children = sorted(list(unique_everseen(okreg_list, lambda x: x.kod_gminy)), key=lambda x: x.gmina)
     children_links = OrderedDict(map(lambda x: (x.gmina, build_gmina(x.kod_gminy)), children))
 
+    okreg_list = filter(lambda x: x.nr_okregu == nr_okregu, data.Obwod.objects)
+    result_set = data.calculate_result_set(okreg_list)
+
     template = env.get_template('okreg.html')
-    out = template.render(my_dict=children_links)
+    out = template.render(my_dict=children_links, result_set=result_set)
     with open("build/" + html_name, "w+") as f:
         f.write(out)
         f.close()

@@ -1,21 +1,15 @@
-<!doctype html>
-<html lang="pl">
-  {% include 'head.html' %}
-  <body>
-    {% include 'header.html' %}
+{% extends "base.html" %}
+{% block results %}
     <div class="container">
-      <p>Loop through the list:</p>
-      <ul>
-        {% for k,v in my_dict.items() %}
-        <li><a href="{{ v }}">{{ k }}</a></li>
-        {% endfor %}
-      </ul>
-      <p>Result set:</p>
-      <ul>
-        {% for (candidate, vote_count, vote_perc) in result_set %}
-        <li>{{ candidate }}; {{ vote_count }}; {{ '{:.1%}'.format(vote_perc) }}</li>
-        {% endfor %}
-      </ul>
+        <ul>
+            {% for k,v in my_dict.items() %}
+                <li><a href="{{ v }}">{{ k }}</a></li>
+            {% endfor %}
+        </ul>
+        <ul>
+            {% for (candidate, vote_count, vote_perc) in result_set %}
+                <li>{{ candidate }}; {{ vote_count }}; {{ '{:.1%}'.format(vote_perc) }}</li>
+            {% endfor %}
+        </ul>
     </div>
-  </body>
-</html>
+{% endblock %}

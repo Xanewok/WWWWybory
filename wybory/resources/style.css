@@ -64,10 +64,16 @@ body {
 .results-table tr:nth-child(even) {
     background-color: #eee;
 }
+
 .results-table tr:nth-child(odd) {
     background-color: #fff;
 }
+
 .results-table th {
 	color: #111e7a;
 	font-weight: bold;
+}
+
+.results-table tr:hover {
+    background-color: #ffff99;
 }

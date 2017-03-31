@@ -88,22 +88,26 @@
 {% endblock content %}
 
 {% block results %}
-    <div class="results">
+    <section class="results">
         <div class="results-table-container">
             <table class="results-table">
                 <tr>
                     <th>Kandydat</th>
                     <th>Liczba ważnych oddanych głosów</th>
-                    <th>Procentowa liczba ważnych oddanych głosów</th>
+                    <th colspan="2">Procentowa liczba ważnych oddanych głosów</th>
                 </tr>
                 {% for (candidate, vote_count, vote_perc) in result_set %}
                     <tr>
                         <td>{{ candidate }}</td>
                         <td>{{ vote_count }}</td>
                         <td>{{ '{:.1%}'.format(vote_perc) }}</td>
+                        <td>
+                            <div class="vote-perc-bar"></div>
+                        </td>
                     </tr>
+
                 {% endfor %}
             </table>
         </div>
-    </div>
+    </section>
 {% endblock %}

@@ -51,14 +51,44 @@ body {
     margin: auto;
 }
 
+.results-table-header {
+    margin-top: 16px;
+    margin-bottom: 3px;
+}
+
 .results-table {
     border-top-style: solid;
     border-color: red;
 }
 
-.results-table-header {
-    margin-top: 16px;
-    margin-bottom: 3px;
+@media only screen and (max-width: 600px) {
+    .results-table tr td:nth-child(4) {
+        display: none;
+        visibility: hidden;
+    }
+}
+
+.results-table tr td:nth-child(1) {
+    width: 50%;
+}
+
+.results-table tr td:nth-child(4) {
+    min-width: 100px;
+    height: 100%;
+    overflow: auto;
+}
+
+.vote-perc-bar {
+    height: 55%;
+    background-color: #aaaaaa;
+}
+
+.vote-perc-bar-winner {
+    background-color: #ff3333;
+}
+
+.vote-perc-bar-2nd-best {
+    background-color: dodgerblue;
 }
 
 .results-table tr:nth-child(even) {

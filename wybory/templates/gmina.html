@@ -15,25 +15,28 @@
 {% block results %}
     <div class="container">
     {% for gmina, results in result_set.items() %}
-        <div class="results>">
+        <section class="results">
             <div class="results-table-container">
                 <div class="results-table-header">Obwód nr {{ "%d" % gmina.nr_obwodu }}, {{ gmina.adres }}</div>
                 <table class="results-table">
                     <tr>
                         <th>Kandydat</th>
                         <th>Liczba ważnych oddanych głosów</th>
-                        <th>Procentowa liczba ważnych oddanych głosów</th>
+                        <th colspan="2">Procentowa liczba ważnych oddanych głosów</th>
                     </tr>
                     {% for (candidate, vote_count, vote_perc) in results %}
                         <tr>
                             <td>{{ candidate }}</td>
                             <td>{{ vote_count }}</td>
                             <td>{{ '{:.1%}'.format(vote_perc) }}</td>
+                            <td>
+                                <div class="vote-perc-bar"></div>
+                            </td>
                         </tr>
                     {% endfor %}
                 </table>
             </div>
-        </div>
+        </section>
     {% endfor %}
     </div>
 {% endblock %}

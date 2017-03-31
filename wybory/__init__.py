@@ -17,5 +17,7 @@ from jinja2 import Environment, PackageLoader, select_autoescape
 from wybory import data  # Read and parse resources/*.xls data
 env = Environment(
     loader=PackageLoader('wybory', 'templates'),
-    autoescape=select_autoescape(['html', 'xml'])
+    autoescape=select_autoescape(['html', 'xml']),
+    trim_blocks=True,
+    lstrip_blocks=True,
 )

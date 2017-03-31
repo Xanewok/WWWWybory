@@ -118,6 +118,8 @@ def make_sure_path_exists(path):
 if __name__ == "__main__":
     shutil.rmtree("build/", ignore_errors=True)
     make_sure_path_exists("build/")
-    shutil.copyfile("resources/style.css", "build/style.css")
+    make_sure_path_exists("build/static/")
+    shutil.copyfile("static/style.css", "build/static/style.css")
+    shutil.copyfile("static/logo.png", "build/static/logo.png")
     build_kraj()
 

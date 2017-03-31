@@ -30,7 +30,7 @@ def build_kraj():
     for woj_id in data.polish_province_ids():
         build_wojewodztwo(woj_id)
 
-    result_set = data.calculate_result_set(data.Obwod.objects)
+    result_set = list(data.calculate_result_set(data.Obwod.objects))
 
     template = env.get_template('kraj.html')
     out = template.render(result_set=result_set)
@@ -49,7 +49,7 @@ def build_wojewodztwo(wojewodztwo_id):
     children_links = OrderedDict(map(lambda x: ("Okręg {0}".format(x.nr_okregu), build_okreg(x.nr_okregu)), children))
 
     wojewodztwo_list = filter(lambda x: x.wojewodztwo_criteria_id == wojewodztwo_id, data.Obwod.objects)
-    result_set = data.calculate_result_set(wojewodztwo_list)
+    result_set = list(data.calculate_result_set(wojewodztwo_list))
 
     next_obwod = next(obj for obj in data.Obwod.objects if obj.wojewodztwo_criteria_id == wojewodztwo_id)
     nav_list = create_navigation(next_obwod, 2)
@@ -73,7 +73,7 @@ def build_okreg(nr_okregu):
     children_links = OrderedDict(map(lambda x: (x.gmina, build_gmina(x.kod_gminy)), children))
 
     okreg_list = filter(lambda x: x.nr_okregu == nr_okregu, data.Obwod.objects)
-    result_set = data.calculate_result_set(okreg_list)
+    result_set = list(data.calculate_result_set(okreg_list))
 
     next_obwod = next(obj for obj in data.Obwod.objects if obj.nr_okregu == nr_okregu)
     nav_list = create_navigation(next_obwod, 3)

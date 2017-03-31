@@ -96,16 +96,26 @@
                     <th>Liczba ważnych oddanych głosów</th>
                     <th colspan="2">Procentowa liczba ważnych oddanych głosów</th>
                 </tr>
+                {% set sorted_vote_counts = result_set|map(attribute='1')|sort(reverse=True)|list %}
                 {% for (candidate, vote_count, vote_perc) in result_set %}
                     <tr>
                         <td>{{ candidate }}</td>
                         <td>{{ vote_count }}</td>
                         <td>{{ '{:.1%}'.format(vote_perc) }}</td>
                         <td>
-                            <div class="vote-perc-bar"></div>
+                            <div class="
+                                vote-perc-bar
+                                {% if vote_count > 0 and vote_count == sorted_vote_counts[0] %}
+                                vote-perc-bar-winner
+                                {% endif %}
+                                {% if vote_count > 0 and vote_count == sorted_vote_counts[1] %}
+                                vote-perc-bar-2nd-best
+                                {% endif %}
+                                "
+                                 style="width: {{ '{:.1%}'.format(vote_perc) }}"
+                            ></div>
                         </td>
                     </tr>
-
                 {% endfor %}
             </table>
         </div>

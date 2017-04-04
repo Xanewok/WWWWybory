@@ -82,6 +82,8 @@ body {
     min-height: 13px;
     height: 80%;
     background-color: #aaaaaa;
+
+.results-table tr:hover {
 }
 
 .vote-perc-bar-winner {
@@ -104,7 +106,6 @@ body {
 	color: #111e7a;
 	font-weight: bold;
 }
-
-.results-table tr:hover {
+.results-table tr:nth-child(n+2):hover {
     background-color: #ffff99;
 }

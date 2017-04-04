@@ -79,7 +79,8 @@ body {
 }
 
 .vote-perc-bar {
-    height: 55%;
+    min-height: 13px;
+    height: 80%;
     background-color: #aaaaaa;
 }
 
